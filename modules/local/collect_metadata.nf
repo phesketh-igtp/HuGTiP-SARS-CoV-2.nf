@@ -1,21 +1,29 @@
 process COLLECT_METADATA {
 
-    publishDir "${params.analysis_dir}/M${runID}/"
+    tag "${runID}"
 
-    input
+    publishDir "${params.analysisDir}/M${runID}/"
+
+    input:
         val runID
-        path samplesheet
+        path mncov_template
 
-    output
-        path("sample_sheet_wf-artic-run${runID}.csv"),          emit: samples_csv
+    output:
+        tuple val(runID), path("sample_sheet_wf-artic-run${runID}.csv"),      emit: samples_csv
 
     shell:
+    
         """
+        # Convert MNCOV Excel template to CSV format
+            python ${params.scriptDir}/bin/convert_mncov_xlsx2csv.py \\
+                                        --xlsx ${mncov_template} \\
+                                        --csv sample_sheet_wf-artic-run${runID}.csv
 
-        # Get sample sheets for analysis from template
-        python /home/seqadmin/Bioinfo/06.python_cwd/Get_samplesheet.py -f ${samplesheet} 
-        sed -i 's@sample_id@alias@g' sample_sheet_wf-artic-run${runID}.csv
-
+        # Check if the output file was created successfully
+            if [ ! -f sample_sheet_wf-artic-run${runID}.csv ]; then
+                echo "Error: Failed to create sample sheet CSV file"
+                exit 1
+            fi
         """
 
 }

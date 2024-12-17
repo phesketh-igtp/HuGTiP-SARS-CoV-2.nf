@@ -1,0 +1,27 @@
+name: artic
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python>=3.7
+  - pypy3.6
+  - pyp3.6
+  - bcftools
+  - biopython
+  - bwa
+  - clair3
+  - clint
+  - htslib
+  - minimap2
+  - multiqc
+  - mafft
+  - pandas
+  - pip
+  - pysam
+  - pytest 
+  - cyvcf2
+  - requests
+  - samtools
+  - tqdm
+  - seqtk

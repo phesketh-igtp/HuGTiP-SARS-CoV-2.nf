@@ -1,0 +1,9 @@
+name: python
+channels:
+- conda-forge
+- bioconda
+- defaults
+packages:
+- biopython
+- pandas
+- argpass
