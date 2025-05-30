@@ -2,7 +2,7 @@ process ARTIC_ANALYSIS {
 
     tag
 
-    publishDir 
+    publishDir "${params.outDir}/artic-results/${sampleid}/"
 
     input:
         tuple val(sampleid), val(alias), path(read_dir)
@@ -12,24 +12,29 @@ process ARTIC_ANALYSIS {
 
     shell:
         """
-
         artic guppyplex \\
             --skip-quality-check \\
-            --min-length ${min_len} \\
-            --max-length ${max_len} \\
+            --min-length ${params.min_len} \\
+            --max-length ${params.max_len} \\
             --directory ${read_dir} \\
-            --prefix ${alias} >
-            ${sampleid}_${alias}.fastq
+            --prefix ${sampleid} >
+            ${sampleid}.fastq
+
+        # download the models (if not already downloaded)
+        artic_get_models
 
         artic minion --medaka \\
-            --normalise ${normalise} \\
+            --normalise ${params.normalise} \\
             --threads ${params.cpu} \\
             --read-file ${sampleid}_${alias}.fastq \\
             --medaka-model ${medaka_model} \\
             --scheme-directory ${params.scheme_dir} \\
-            --scheme-version ${scheme_version} \\
-            --max-softclip-length ${max_softclip_length} \\
-            ${scheme_name} ${sample_name}
+            --scheme-name ${params.scheme_name} \\
+            --scheme-version ${params.scheme_version} \\
+            --max-softclip-length ${params.max_softclip_length} \\
+            --min-mapq ${params.min_mapq} \\
+            --linearise-fasta \\
+            ${sampleid}
 
         # rename the consensus sequence
         sed -i "s/^>\S*/>${sample_name}/" "${sampleid}.consensus.fasta"
