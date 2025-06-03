@@ -4,7 +4,7 @@ process proovframe {
 
     publishDir "${params.outDir}/artic-results/${sampleID}/", mode: 'copy'
 
-    conda params.conda_env
+    conda params.env_general
 
     input:
         tuple val(sampleID),

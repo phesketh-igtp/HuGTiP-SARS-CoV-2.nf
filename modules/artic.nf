@@ -2,16 +2,14 @@ process artic {
 
     tag "${sampleID}"
 
-    publishDir "${params.outDir}/artic-results/${sampleID}/", mode: 'copy'
+    publishDir "${params.outDir}/output-artic/${sampleID}/", mode: 'copy'
 
-    conda params.env_general
+    conda params.env_artic
 
     input:
         tuple val(sampleID), 
             val(barcode),
             val(type)
-
-        path(data_md5sum)
 
     output:
         tuple val(sampleID),
@@ -40,34 +38,34 @@ process artic {
             path("${sampleID}.primertrimmed.rg.sorted.bam.bai"), emit: main_out
         
     script:
-        """
+    """
         # Run guppyplex to QC the reads
-            artic guppyplex \\
-                --min-length ${params.min_len} \\
-                --max-length ${params.max_len} \\
-                --directory ${params.dataDir}/run_${params.runID}/*/*/fastq_pass/${barcode} \\
-                --prefix ${sampleID} \\
-                --output ${sampleID}-${params.runID}-SCoV2.fastq
+        artic guppyplex \\
+            --min-length ${params.min_len} \\
+            --max-length ${params.max_len} \\
+            --directory ${params.dataDir}/run_${params.runID}/*/*/fastq_pass/${barcode} \\
+            --prefix ${sampleID} \\
+            --output ${sampleID}-${params.runID}-SCoV2.fastq
 
-        # download the models (if not already downloaded)
-            artic_get_models
+        # Skip model download since they already exist
+        # artic_get_models
 
         # Run artic
-            artic minion \\
-                --normalise ${params.normalise} \\
-                --min-mapq ${params.min_mapq} \\
-                --min-depth ${params.min_depth} \\
-                --threads 1 \\
-                --read-file ${sampleID}-M213-SCoV2.fastq \\
-                --linearise-fasta \\
-                --bed "${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/*.scheme.bed" \\
-                --ref "${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/*.reference.fasta" \\
-                ${sampleID}
+        artic minion \\
+            --normalise ${params.normalise} \\
+            --min-mapq ${params.min_mapq} \\
+            --min-depth ${params.min_depth} \\
+            --threads 2 \\
+            --read-file ${sampleID}-${params.runID}-SCoV2.fastq \\
+            --linearise-fasta \\
+            --bed ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/scheme.bed \\
+            --ref ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/reference.fasta \\
+            ${sampleID}
 
-        # rename the consensus sequence
-            sed -i "s/^>\S*/>${sampleID}/" "${sampleID}.consensus.fasta"
+        # rename the consensus sequence - fixed sed command
+        sed -i 's/^>.*/>'"${sampleID}"'/' ${sampleID}.consensus.fasta
 
         # compress the guppyplex files for RELECOV
-            gzip --best ${sampleID}-${params.runID}-SCoV2.fastq
-        """
+        gzip --best ${sampleID}-${params.runID}-SCoV2.fastq
+    """
 }

@@ -4,7 +4,6 @@ nextflow.enable.dsl = 2
 /*
 Import modules and workflows
 */
-include { data_transfer }   from './modules/data_transfer.nf'
 include { artic }           from './modules/artic.nf'
 include { coverage }        from './modules/coverage.nf'
 include { proovframe }      from './modules/proovframe.nf'
@@ -39,6 +38,11 @@ workflow {
             error "Please provide a Minion identity using --minionID (options: 1 or 2 )"
         }
 
+    // Check if minionID is provided
+        if (params.dataDir == null) {
+            error "Please provide full path to directory containing ONT results using --dataDir"
+        }
+
         // Set ip_address based on minionID
         def minion_ip
             if (params.minionID == 1 || params.minionID == '1') {
@@ -56,16 +60,8 @@ workflow {
 
     // Main workflow
 
-    /// Download the data
-        data_transfer( params.runID,
-                        params.dataDir,
-                        params.minion_password,
-                        minion_ip
-        )
-
     /// Run Artic
-        artic(samples_ch,
-                data_transfer.out.data_md5sum )
+        artic( samples_ch )
 
     /// Run proofframe to correct frameshifts
         proovframe( artic.out.artic_consensus )
