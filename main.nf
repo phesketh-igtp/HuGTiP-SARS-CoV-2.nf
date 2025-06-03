@@ -4,9 +4,13 @@ nextflow.enable.dsl = 2
 /*
 Import modules and workflows
 */
-
-include { WORKFLOW_ONE }                from '../workflows/workflow_one.nf'
-include { WORKFLOW_TWO }                from '../workflows/workflow_two.nf'
+include { data_transfer }       from './modules/data_transfer.nf'
+include { collect_metadata }    from './modules/data_transfer.nf'
+include { artic }               from './modules/artic.nf'
+include { coverage }            from './modules/coverage.nf'
+include { proovframe }          from './modules/proovframe.nf'
+include { nextclade }           from './modules/nextclade.nf'
+include { pangolin }            from './modules/pangolin.nf'
 
 workflow {
 
@@ -59,25 +63,7 @@ workflow {
 
     // Main workflow
 
-        if (params.workflow == 1) {
 
-                WORKFLOW_ONE(   params.minion,
-                                params.mncov_template,
-                                params.runID,
-                                minion_ip
-                            )
-
-        } else if (params.workflow == 2) {
-
-                WORKFLOW_TWO(   params.relecov_template,
-                                params.runID
-                            )
-
-        } else {
-
-            error "Invalid workflow parameter. Please use --workflow 1 or --workflow 2"
-
-        }
 
 
 
