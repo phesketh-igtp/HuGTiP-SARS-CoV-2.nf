@@ -1,6 +1,6 @@
 process pangolin {
 
-    publishDir "${params.outDir}/output_pangolin/"
+    publishDir "${params.outDir}/output-pangolin/"
 
     conda params.env_pangolin
 
@@ -8,15 +8,22 @@ process pangolin {
         file(consensus)
 
     output:
-        file("output_pangolin/*")
+        file("output-pangolin/lineage_report.csv")
         
     script:
 
         """
-        pangolin --update
-        pangolin --update-data --datadir ./pangolin-db/
+        # Concat fasta into single file
         cat ${consensus} > all.proovframe.consensus.fasta
-        pangolin all.proovframe.consensus.fasta -o output_pangolin/
+
+        # Update the pangolin database
+        pangolin --update; mkdir pangolin-db/
+        pangolin --update-data --datadir pangolin-db/
+
+        # Run pangolin
+        pangolin all.proovframe.consensus.fasta \\
+            -o output-pangolin/ \\
+            -d pangolin-db/
         """
 
 }

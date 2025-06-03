@@ -1,7 +1,5 @@
 name: pangolin
 channels:
-- conda-forge
 - bioconda
-- defaults
 packages:
 - pangolin

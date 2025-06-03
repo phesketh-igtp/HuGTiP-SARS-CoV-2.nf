@@ -1,13 +1,13 @@
 process alignment {
 
-    publishDir "${params.outDir}/consensus_FS_corrected/"
+    publishDir "${params.outDir}/consensus_FS_corrected/", mode: 'copy'
 
     input:
         file(consensus)
 
     output:
-            file("all_corr_consensus_aligned.fasta")
-            file("all_corr_consensus_and_ref.fasta")
+            path("all_corr_consensus_aln.fasta")
+            path("all_corr_consensus_and_ref.fasta")
         
     script:
 
@@ -18,9 +18,9 @@ process alignment {
                 > all_corr_consensus_and_ref.fasta
 
         #Align sequences
-            mafft --thread ${params.cpu} \\
-                --auto all_consensus_and_ref.fasta \\
-                > all_corr_consensus_aligned.fasta
+            mafft --auto --thread 2 \\
+                all_corr_consensus_and_ref.fasta \\
+                > all_corr_consensus_aln.fasta
         """
 
 }

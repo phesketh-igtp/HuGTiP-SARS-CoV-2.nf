@@ -76,6 +76,17 @@ workflow {
 
     /// Calculate coverage and plot coverage mapping 
         coverage( artic.out.artic_coverage )
+        
+        /// Concatenate the outputs
+            coverage.out.coverage_res
+            .collectFile(
+                name: 'coverage_mean.csv',
+                keepHeader: true,
+                skip: 1,
+                storeDir: "${params.outDir}"
+            )
+
+    /// 
 
 }
 
