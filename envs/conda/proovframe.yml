@@ -1,0 +1,8 @@
+name: proovframe
+channels:
+- conda-forge
+- bioconda
+- defaults
+packages:
+- proovframe
+- diamond

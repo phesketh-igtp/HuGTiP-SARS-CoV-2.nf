@@ -4,11 +4,9 @@ channels:
 - bioconda
 - defaults
 packages:
-- nextclade
-- pangolin
-- proovframe
 - samtools
-- seqkit
 - mafft
 - r-plotly
 - r-tidyverse
+- r-htmlwidgets
+- r-dplyr

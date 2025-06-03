@@ -8,30 +8,30 @@ process coverage {
 
     input:
         tuple val(sampleID),
-            file(bam),
-            file(bam_bai),
-            file(primersitereport),
-            file(amplicon_depths),
-            file(alignreport)
+            path(bam),
+            path(bam_bai),
+            path(primersitereport, stageAs: "primersitereport.csv"),
+            path(amplicon_depths, stageAs: "amplicon_depths.csv"),
+            path(alignreport, stageAs: "alignreport.csv")
     output:
-        file("${sampleID}.coverage_mean.tab")
-        file("${sampleID}.coverage.html")
+        path("${sampleID}.coverage.tsv")
+        //path("${sampleID}.coverage.html")
 
     script:
 
         """
         # Calculate mean depth
-            depth=\$(samtools coverage "${bam}" | sed '1d')
+        samtools coverage "${bam}" > ${sampleID}.coverage.tsv
 
-        # Check if mean_depth is empty (no positions available)
-            if [ -z "\${depth}" ]; then mean_depth="NA"; fi
-
-        # Append the result to the output file
-            echo -e "${sampleID}\t\${depth}" >> ${sampleID}.coverage_mean.tab
+       # Get complete depth data
+            samtools depth ${bam} > ${sampleID}.depths.csv
+            cp ${sampleID}.depths.csv depths.csv
 
         # generate coverage HTML
-                       
-
+            cp ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/scheme.bed .
+            Rscript ${params.scriptDir}/R/coverage_plots.R
+            rm scheme.bed depths.csv
+            mv sequencing_depth_plot.html ${sampleID}.depth.html
         """
 
 }

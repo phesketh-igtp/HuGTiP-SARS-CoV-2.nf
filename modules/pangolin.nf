@@ -2,7 +2,7 @@ process pangolin {
 
     publishDir "${params.outDir}/output_pangolin/"
 
-    conda params.env_general
+    conda params.env_pangolin
 
     input:
         file(consensus)
@@ -15,7 +15,8 @@ process pangolin {
         """
         pangolin --update
         pangolin --update-data --datadir ./pangolin-db/
-        pangolin ${consensus} -o output_pangolin/
+        cat ${consensus} > all.proovframe.consensus.fasta
+        pangolin all.proovframe.consensus.fasta -o output_pangolin/
         """
 
 }

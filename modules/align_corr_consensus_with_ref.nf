@@ -13,7 +13,7 @@ process alignment {
 
         """
         # Add reference to multifasta (maybe add a flag to be able to change the reference?)
-            cat ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/*.reference.fasta \\
+            cat ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/reference.fasta \\
                 ${consensus} \\
                 > all_corr_consensus_and_ref.fasta
 
