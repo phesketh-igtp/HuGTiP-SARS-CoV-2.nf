@@ -4,6 +4,8 @@ process coverage {
 
     publishDir "${params.outDir}/artic-results/${sampleID}/"
 
+    conda params.env_general
+
     input:
         tuple val(sampleID),
             file(bam),
@@ -19,7 +21,7 @@ process coverage {
 
         """
         # Calculate mean depth
-            depth=$(samtools coverage "${bam}" | sed '1d')
+            depth=\$(samtools coverage "${bam}" | sed '1d')
 
         # Check if mean_depth is empty (no positions available)
             if [ -z "\${depth}" ]; then mean_depth="NA"; fi

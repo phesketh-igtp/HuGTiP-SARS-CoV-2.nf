@@ -2,6 +2,8 @@ process nextclade {
 
     publishDir "${params.outDir}/output_nextclade/"
 
+    conda params.env_general
+
     input:
         file(consensus)
 

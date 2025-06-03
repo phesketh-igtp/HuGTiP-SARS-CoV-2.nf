@@ -1,21 +1,19 @@
 process data_transfer {
 
-    publishDir "${params.dataDir}/M${run_ID}/", mode: 'copy'
+    publishDir "${params.dataDir}/M${runID}/", mode: 'copy'
 
     input:
-        val(run_ID)
-        val(data_dir)
-        val(minion_pass)
+        val(runID)
+        val(dataDir)
+        val(minion_password)
         val(minion_ip)
 
     output:
-        path "md5sum.txt", emit: data_transfer_handover
+        path("md5sum.txt"), emit: data_md5sum
     
     script:
-
-    """
-    sshpass -p "${minion_pass}" rsync -aP minit@${minion_ip}:/data/run_${run_ID} ${data_dir}
-
-    md5sum ${data_dir} > md5sum.txt
-    """
+        """
+        sshpass -p "${minion_password}" rsync -aP minit@${minion_ip}:/data/run_${runID}/ "${dataDir}/"
+        md5sum "${dataDir}/" > md5sum.txt
+        """
 }

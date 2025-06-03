@@ -40,32 +40,32 @@ workflow {
         }
 
         // Set ip_address based on minionID
-            if (params.minionID == 'MC-112755') {
-                minion_ip = '' // Replace with actual IP address for MC-112755
-            } else if (params.minionID == 'MC-115292') {
-                minion_ip = '' // Replace with actual IP address for MC-115292
+        def minion_ip
+            if (params.minionID == 1 || params.minionID == '1') {
+                minion_ip = '10.80.155.184'
+            } else if (params.minionID == 2 || params.minionID == '2') {
+                minion_ip = '10.80.155.84'
             } else {
-                error "Invalid MinION ID. Please use --minionID MC-112755 or --minionID MC-115292"
+                error "Invalid MinION ID. Please use --minionID 1 or --minionID 2"
             }
 
     // Create the data channel from the metadata
     samples_ch = Channel
                 .fromPath(params.metadata)
                 .splitCsv(header: true)
-                .view()
 
     // Main workflow
 
     /// Download the data
         data_transfer( params.runID,
                         params.dataDir,
-                        params.minion_pass,
+                        params.minion_password,
                         minion_ip
         )
 
     /// Run Artic
         artic(samples_ch,
-                data_transfer.out.data_transfer_handover )
+                data_transfer.out.data_md5sum )
 
     /// Run proofframe to correct frameshifts
         proovframe( artic.out.artic_consensus )

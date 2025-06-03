@@ -7,3 +7,8 @@ packages:
 - nextclade
 - pangolin
 - proovframe
+- samtools
+- seqkit
+- artic
+- r-plotly
+- r-tidyverse

@@ -2,14 +2,16 @@ process proovframe {
 
    tag "${sampleID}"
 
-    publishDir "${params.outDir}/artic-results/${sampleID}/"
+    publishDir "${params.outDir}/artic-results/${sampleID}/", mode: 'copy'
+
+    conda params.conda_env
 
     input:
         tuple val(sampleID),
-            file(consensus)
+            path(consensus)
 
     output:
-        file("${sampleID}.proovframe.consensus.fasta"), emit: corr_consensus
+        path("${sampleID}.proovframe.consensus.fasta"), emit: corr_consensus
 
         
     script:
