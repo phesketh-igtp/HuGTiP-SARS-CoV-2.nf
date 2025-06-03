@@ -45,6 +45,6 @@ process artic {
             --ref ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/reference.fasta
 
     # rename the consensus sequence - fixed sed command
-        sed -i 's/^>.*/>'"${sampleID}"'/' ${sampleID}.consensus.fasta
+        sed -i 's/^>.*/>'"${sampleID}.consensus"'/' ${sampleID}.consensus.fasta
     """
 }
