@@ -9,5 +9,6 @@ packages:
 - proovframe
 - samtools
 - seqkit
+- mafft
 - r-plotly
 - r-tidyverse

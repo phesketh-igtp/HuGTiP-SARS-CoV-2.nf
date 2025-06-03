@@ -4,12 +4,13 @@ nextflow.enable.dsl = 2
 /*
 Import modules and workflows
 */
-include { artic }           from './modules/artic.nf'
-include { coverage }        from './modules/coverage.nf'
-include { proovframe }      from './modules/proovframe.nf'
-include { alignment }       from './modules/align_corr_consensus_with_ref.nf'
-include { nextclade }       from './modules/nextclade.nf'
-include { pangolin }        from './modules/pangolin.nf'
+include { guppyplex }   from './modules/guppyplex.nf'
+include { artic }       from './modules/artic.nf'
+include { coverage }    from './modules/coverage.nf'
+include { proovframe }  from './modules/proovframe.nf'
+include { alignment }   from './modules/align_corr_consensus_with_ref.nf'
+include { nextclade }   from './modules/nextclade.nf'
+include { pangolin }    from './modules/pangolin.nf'
 
 workflow {
 
@@ -58,10 +59,9 @@ workflow {
                 .fromPath(params.metadata)
                 .splitCsv(header: true)
 
-    // Main workflow
-
-    /// Run Artic
-        artic( samples_ch )
+    /// Run Artic workflows
+        guppyplex( samples_ch )
+        artic( guppyplex.out.guppyplex_out )
 
     /// Run proofframe to correct frameshifts
         proovframe( artic.out.artic_consensus )
