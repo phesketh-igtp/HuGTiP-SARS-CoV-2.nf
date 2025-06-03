@@ -1,4 +1,0 @@
-process WORKFLOW_TWO {
-
-    
-}

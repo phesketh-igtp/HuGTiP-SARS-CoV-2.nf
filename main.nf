@@ -4,13 +4,13 @@ nextflow.enable.dsl = 2
 /*
 Import modules and workflows
 */
-include { data_transfer }       from './modules/data_transfer.nf'
-include { collect_metadata }    from './modules/data_transfer.nf'
-include { artic }               from './modules/artic.nf'
-include { coverage }            from './modules/coverage.nf'
-include { proovframe }          from './modules/proovframe.nf'
-include { nextclade }           from './modules/nextclade.nf'
-include { pangolin }            from './modules/pangolin.nf'
+include { data_transfer }   from './modules/data_transfer.nf'
+include { artic }           from './modules/artic.nf'
+include { coverage }        from './modules/coverage.nf'
+include { proovframe }      from './modules/proovframe.nf'
+include { alignment }       from './modules/align_corr_consensus_with_ref.nf'
+include { nextclade }       from './modules/nextclade.nf'
+include { pangolin }        from './modules/pangolin.nf'
 
 workflow {
 
@@ -25,13 +25,8 @@ workflow {
     """
 
     // Create channel from sample sheet
-        if (params.mncov_template == null) {
-            error "Please provide a samplesheet XLSX file with --samplesheet (i.e. path to sample template XLSX)"
-        }
-
-    // Create channel from sample sheet
-        if (params.relecov_template == null) {
-            error "Please provide a samplesheet XLSX file with --relecov (i.e. path to relecov template XLSX)"
+        if (params.metadata == null) {
+            error "Please provide a samplesheet XLSX file with --samplesheet (i.e. path to samplesheet-artic.csv)"
         }
 
     // Check if RunID is provided
@@ -41,7 +36,7 @@ workflow {
 
     // Check if minionID is provided
         if (params.minionID == null) {
-            error "Please provide a Minion identity using --minionID (options: 1. 'MC-112755' or 2. 'MC-115292')"
+            error "Please provide a Minion identity using --minionID (options: 1 or 2 )"
         }
 
         // Set ip_address based on minionID
@@ -53,23 +48,38 @@ workflow {
                 error "Invalid MinION ID. Please use --minionID MC-112755 or --minionID MC-115292"
             }
 
-    // Check if RunID is provided
-        if (params.workflow == null ) {
-            error "Please select a workflow, (1) workflow-1 for the initial download,
-                mapping to reference genomes, ARTIC analysis, multiple-sequence alignment, or
-                 (2) workflow-2 post frame-shit correction, submission to GISAID, and generation of 
-                 results XLSX for submission to RELECOV and MINCOVSEQ ( numeric, options: 1 or 2 )"
-        }
+    // Create the data channel from the metadata
+    samples_ch = Channel
+                .fromPath(params.metadata)
+                .splitCsv(header: true)
+                .view()
 
     // Main workflow
 
+    /// Download the data
+        data_transfer( params.runID,
+                        params.dataDir,
+                        params.minion_pass,
+                        minion_ip
+        )
 
+    /// Run Artic
+        artic(samples_ch,
+                data_transfer.out.data_transfer_handover )
 
+    /// Run proofframe to correct frameshifts
+        proovframe( artic.out.artic_consensus )
 
+    /// Collect all the consensus sequenced into a single file
+        corr_consensus = proovframe.out.corr_consensus.collect()
 
+    /// Align consensus genomes with reference
+        alignment( corr_consensus )
+        nextclade( corr_consensus )
+        pangolin( corr_consensus )
 
-    
-
+    /// Calculate coverage and plot coverage mapping 
+        coverage( artic.out.artic_coverage )
 
 }
 

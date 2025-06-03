@@ -1,5 +1,0 @@
-proces amplicon_viz {
-
-
-    
-}

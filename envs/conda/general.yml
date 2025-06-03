@@ -1,0 +1,9 @@
+name: general
+channels:
+- conda-forge
+- bioconda
+- defaults
+packages:
+- nextclade
+- pangolin
+- proovframe
