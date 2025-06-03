@@ -35,24 +35,9 @@ workflow {
         }
 
     // Check if minionID is provided
-        if (params.minionID == null) {
-            error "Please provide a Minion identity using --minionID (options: 1 or 2 )"
-        }
-
-    // Check if minionID is provided
         if (params.dataDir == null) {
             error "Please provide full path to directory containing ONT results using --dataDir"
         }
-
-        // Set ip_address based on minionID
-        def minion_ip
-            if (params.minionID == 1 || params.minionID == '1') {
-                minion_ip = '10.80.155.184'
-            } else if (params.minionID == 2 || params.minionID == '2') {
-                minion_ip = '10.80.155.84'
-            } else {
-                error "Invalid MinION ID. Please use --minionID 1 or --minionID 2"
-            }
 
     // Create the data channel from the metadata
     samples_ch = Channel

@@ -8,8 +8,7 @@ process guppyplex {
 
     input:
         tuple val(sampleID), 
-            val(barcode),
-            val(type)
+            val(barcode)
 
     output:
         tuple val(sampleID),
