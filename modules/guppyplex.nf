@@ -12,7 +12,7 @@ process guppyplex {
 
     output:
         tuple val(sampleID),
-            path("${sampleID}-${params.runID}-SCoV2.fastq"), emit: guppyplex_out
+            path("${sampleID}-M${params.runID}-SCoV2.fastq"), emit: guppyplex_out
         
     script:
 
@@ -23,6 +23,6 @@ process guppyplex {
             --max-length ${params.max_len} \\
             --directory ${params.dataDir}/${barcode} \\
             --prefix ${sampleID} \\
-            --output ${sampleID}-${params.runID}-SCoV2.fastq
+            --output ${sampleID}-M${params.runID}-SCoV2.fastq
     """
 }
