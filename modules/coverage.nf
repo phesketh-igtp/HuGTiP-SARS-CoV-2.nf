@@ -2,7 +2,7 @@ process coverage {
 
    tag "${sampleID}"
 
-    publishDir "${params.outDir}/artic-results/${sampleID}/", mode: 'copy'
+    publishDir "${params.outDir}/output-artic/${sampleID}/", mode: 'copy'
 
     conda params.env_general
 

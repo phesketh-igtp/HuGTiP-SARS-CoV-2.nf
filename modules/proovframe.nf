@@ -2,7 +2,7 @@ process proovframe {
 
    tag "${sampleID}"
 
-    publishDir "${params.outDir}/artic-results/${sampleID}/", mode: 'copy'
+    publishDir "${params.outDir}/output-artic/${sampleID}/", mode: 'copy'
 
     conda params.env_general
 
@@ -11,7 +11,9 @@ process proovframe {
             path(consensus)
 
     output:
-        path("${sampleID}.proovframe.consensus.fasta"), emit: corr_consensus
+        tuple val(sampleID),
+            path("${sampleID}.proovframe.consensus.fasta"), 
+            path("${sampleID}.proovframe.diamond.tsv"), emit: proovframe_out
 
     script:
 

@@ -52,8 +52,8 @@ workflow {
     /// Run proofframe to correct frameshifts
         proovframe( artic.out.artic_consensus )
 
-    /// Collect all the consensus sequenced into a single file
-        concatenate_consensus(proovframe.out.corr_consensus.collect())
+        /// Concatenate all consensus .fasta files
+        concatenate_consensus( proovframe.out.proovframe_out.collect() )
         corr_consensus = concatenate_consensus.out.consensus_cat
 
     /// Align consensus genomes with reference

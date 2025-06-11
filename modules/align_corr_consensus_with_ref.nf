@@ -15,12 +15,12 @@ process alignment {
         # Add reference to multifasta (maybe add a flag to be able to change the reference?)
             cat ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/reference.fasta \\
                 ${consensus} \\
-                > all_corr_consensus_and_ref.fasta
+                > all.proovframe.consensus_w_ref.fasta     
 
         #Align sequences
             mafft --auto --thread 2 \\
-                all_corr_consensus_and_ref.fasta \\
-                > all_corr_consensus_aln.fasta
+                all.proovframe.consensus_w_ref.fasta \\
+                > all.proovframe.consensus_w_ref.aln.fasta     
         """
 
 }
