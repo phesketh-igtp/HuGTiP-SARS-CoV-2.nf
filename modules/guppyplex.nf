@@ -17,7 +17,7 @@ process guppyplex {
     script:
 
     """
-        # Run guppyplex to QC the reads
+    # Run guppyplex to QC the reads
         artic guppyplex \\
             --min-length ${params.min_len} \\
             --max-length ${params.max_len} \\
