@@ -34,10 +34,10 @@ process coverage {
 
         # generate coverage HTML
             cp ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/scheme.bed .
-            Rscript ${params.scriptDir}/R/coverage_plots.R
+            #Rscript ${params.scriptDir}/R/coverage_plots.R
             
-            rm depths.csv #scheme.bed 
-            mv sequencing_depth_plot.html ${sampleID}.depth.html
+            #rm depths.csv #scheme.bed 
+            #mv sequencing_depth_plot.html ${sampleID}.depth.html
         """
 
 }

@@ -5,7 +5,7 @@ process nextclade {
     conda params.env_nextclade
 
     input:
-        file(consensus)
+        path(consensus)
 
     output:
         file("output_nextclade/*")

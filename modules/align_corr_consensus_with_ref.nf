@@ -3,7 +3,7 @@ process alignment {
     publishDir "${params.outDir}/consensus_FS_corrected/", mode: 'copy'
 
     input:
-        file(consensus)
+        path(consensus)
 
     output:
             path("all_corr_consensus_aln.fasta")

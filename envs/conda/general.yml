@@ -6,7 +6,9 @@ channels:
 packages:
 - samtools
 - mafft
+- seqkit
 - r-plotly
 - r-tidyverse
 - r-htmlwidgets
 - r-dplyr
+- r-plotly

@@ -8,6 +8,7 @@ include { guppyplex }   from './modules/guppyplex.nf'
 include { artic }       from './modules/artic.nf'
 include { coverage }    from './modules/coverage.nf'
 include { proovframe }  from './modules/proovframe.nf'
+include { concatenate_consensus } from './modules/concatenate_consensus.nf'
 include { alignment }   from './modules/align_corr_consensus_with_ref.nf'
 include { nextclade }   from './modules/nextclade.nf'
 include { pangolin }    from './modules/pangolin.nf'
@@ -52,7 +53,8 @@ workflow {
         proovframe( artic.out.artic_consensus )
 
     /// Collect all the consensus sequenced into a single file
-        corr_consensus = proovframe.out.corr_consensus.collect()
+        concatenate_consensus(proovframe.out.corr_consensus.collect())
+        corr_consensus = concatenate_consensus.out.consensus_cat
 
     /// Align consensus genomes with reference
         alignment( corr_consensus )

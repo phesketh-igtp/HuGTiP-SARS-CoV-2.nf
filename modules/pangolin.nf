@@ -5,7 +5,7 @@ process pangolin {
     conda params.env_pangolin
 
     input:
-        file(consensus)
+        path(consensus)
 
     output:
         file("output-pangolin/lineage_report.csv")
