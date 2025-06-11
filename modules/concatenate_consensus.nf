@@ -20,7 +20,7 @@ process concatenate_consensus {
 
         cat ${params.outDir}/output-artic/*/*.proovframe.consensus.fasta \\
             all.proovframe.consensus.1.fasta \\
-            > all.proovframe.consensus.2.fasta    
+            > all.proovframe.consensus.2.fasta
 
         # remove duplicate sequences (can occur during reruns)
         seqkit rmdup --by-name \\

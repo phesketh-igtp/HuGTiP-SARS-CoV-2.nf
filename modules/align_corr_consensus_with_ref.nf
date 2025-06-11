@@ -6,8 +6,8 @@ process alignment {
         path(consensus)
 
     output:
-            path("all_corr_consensus_aln.fasta")
-            path("all_corr_consensus_and_ref.fasta")
+            path("all.proovframe.consensus_w_ref.aln.fasta")
+            path("all.proovframe.consensus_w_ref.fasta")
         
     script:
 
