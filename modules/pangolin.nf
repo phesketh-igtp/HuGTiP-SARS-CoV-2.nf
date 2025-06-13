@@ -8,7 +8,7 @@ process pangolin {
         path(consensus)
 
     output:
-        file("output-pangolin/lineage_report.csv")
+        file("lineage_report.csv")
         
     script:
 
@@ -24,6 +24,9 @@ process pangolin {
         pangolin all.proovframe.consensus.fasta \\
             -o output-pangolin/ \\
             -d pangolin-db/
+
+        # mv the result to the main working directory
+        mv output-pangolin/lineage_report.csv .
         """
 
 }
