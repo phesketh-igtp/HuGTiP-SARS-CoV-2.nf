@@ -34,17 +34,22 @@ process artic {
             path("${sampleID}.primertrimmed.rg.sorted.bam.bai"), emit: main_out
         
     script:
+
     """
     # Run artic
         artic minion ${sampleID} \\
-            --normalise ${params.normalise} --min-mapq ${params.min_mapq} \\
-            --min-depth ${params.min_depth} \\
-            --threads 1 --linearise-fasta \\
+            --normalise ${params.normalise} \\
+            --min-mapq ${params.min_mapq} \\
+            --threads ${task.cpus} \\
+            --linearise-fasta \\
             --read-file ${fastq} \\
             --bed ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/scheme.bed \\
-            --ref ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/reference.fasta
+            --ref ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/reference.fasta \\
+            --verbosity 4
 
     # rename the consensus sequence - fixed sed command
         sed -i 's/^>.*/>'"${sampleID}.consensus"'/' ${sampleID}.consensus.fasta
     """
 }
+
+// --min-depth ${params.min_depth} \\

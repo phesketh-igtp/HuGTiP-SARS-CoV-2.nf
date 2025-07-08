@@ -4,14 +4,14 @@ nextflow.enable.dsl = 2
 /*
 Import modules and workflows
 */
-include { guppyplex }   from './modules/guppyplex.nf'
-include { artic }       from './modules/artic.nf'
-include { coverage }    from './modules/coverage.nf'
-include { proovframe }  from './modules/proovframe.nf'
-include { concatenate_consensus } from './modules/concatenate_consensus.nf'
-include { alignment }   from './modules/align_corr_consensus_with_ref.nf'
-include { nextclade }   from './modules/nextclade.nf'
-include { pangolin }    from './modules/pangolin.nf'
+include { guppyplex }               from './modules/guppyplex.nf'
+include { artic }                   from './modules/artic.nf'
+include { coverage }                from './modules/coverage.nf'
+include { proovframe }              from './modules/proovframe.nf'
+include { concatenate_consensus }   from './modules/concatenate_consensus.nf'
+include { alignment }               from './modules/align_corr_consensus_with_ref.nf'
+include { nextclade }               from './modules/nextclade.nf'
+include { pangolin }                from './modules/pangolin.nf'
 
 workflow {
 

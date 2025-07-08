@@ -22,3 +22,13 @@ dependencies:
   - samtools
   - tqdm
   - seqtk
+
+
+
+name: artic
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - artic
