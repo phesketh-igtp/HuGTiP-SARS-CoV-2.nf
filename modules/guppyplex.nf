@@ -17,11 +17,6 @@ process guppyplex {
     script:
 
     """
-
-    mkdir -p reads
-
-    ln -s ${params.dataDir}/${barcode}/* reads/
-
     # Run guppyplex to QC the reads
         artic guppyplex \\
             --min-length ${params.min_len} \\
