@@ -39,6 +39,9 @@ process artic {
     # Run artic
         artic minion ${sampleID} \\
             --min-mapq ${params.min_mapq} \\
+            --min-depth ${params.min_depth} \\
+            --normalise ${params.normalise} \\
+            --threads ${task.cpus} \\ 
             --linearise-fasta \\
             --read-file ${fastq} \\
             --bed ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/scheme.bed \\
@@ -48,7 +51,3 @@ process artic {
         sed -i 's/^>.*/>'"${sampleID}.consensus"'/' ${sampleID}.consensus.fasta
     """
 }
-
-//              --min-depth ${params.min_depth} \\ -fails
-//              --normalise ${params.normalise} \\ -fails
-//              --threads ${task.cpus} \\ 
