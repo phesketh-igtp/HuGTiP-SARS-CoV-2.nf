@@ -22,10 +22,8 @@ process guppyplex {
             --min-length ${params.min_len} \\
             --max-length ${params.max_len} \\
             --quality ${params.min_qval} \\
-            --directory reads/ \\
+            --directory --directory ${params.dataDir}/${barcode} \\
             --prefix ${sampleID} \\
             --output ${sampleID}-M${params.runID}-SCoV2.fastq
     """
 }
-
-// --directory ${params.dataDir}/${barcode} \\
