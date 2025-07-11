@@ -38,9 +38,7 @@ process artic {
     """
     # Run artic
         artic minion ${sampleID} \\
-            --normalise ${params.normalise} \\
             --min-mapq ${params.min_mapq} \\
-            --threads ${task.cpus} \\
             --linearise-fasta \\
             --read-file ${fastq} \\
             --bed ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/scheme.bed \\
@@ -51,4 +49,6 @@ process artic {
     """
 }
 
-// --min-depth ${params.min_depth} \\
+//              --min-depth ${params.min_depth} \\ -fails
+//              --normalise ${params.normalise} \\ -fails
+//              --threads ${task.cpus} \\ 
