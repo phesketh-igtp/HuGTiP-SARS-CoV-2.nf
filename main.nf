@@ -52,9 +52,10 @@ workflow {
     /// Run proofframe to correct frameshifts
         proovframe( artic.out.artic_consensus )
 
-        /// Concatenate all consensus .fasta files
-        concatenate_consensus( proovframe.out.proovframe_out.collect() )
-        corr_consensus = concatenate_consensus.out.consensus_cat
+        proovframe.out.proovframe_out
+            .map { sampleID, fasta, tsv -> fasta }  // Extract only the FASTA files
+            .collectFile(name: 'concatenated_consensus.fasta', newLine: true)
+            .set { corr_consensus }
 
     /// Align consensus genomes with reference
         alignment( corr_consensus )

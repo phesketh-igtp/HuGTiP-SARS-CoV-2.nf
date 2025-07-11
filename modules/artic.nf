@@ -41,7 +41,6 @@ process artic {
             --min-mapq ${params.min_mapq} \\
             --min-depth ${params.min_depth} \\
             --normalise ${params.normalise} \\
-            --threads 2 \\ 
             --linearise-fasta \\
             --read-file ${fastq} \\
             --bed ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/scheme.bed \\

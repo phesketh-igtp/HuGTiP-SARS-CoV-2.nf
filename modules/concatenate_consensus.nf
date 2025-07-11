@@ -5,9 +5,7 @@ process concatenate_consensus {
     publishDir "${params.outDir}/consensus_FS_corrected/", mode: 'copy'
 
     input:
-        tuple val(sampleID),
-            path(corr_consensus), 
-            path(diamond)
+        path "concatenated_consensus.fasta"
 
     output:
         path("all.proovframe.consensus.fasta"), emit: consensus_cat
