@@ -1,6 +1,6 @@
 process nextclade {
 
-    publishDir "${params.outDir}/output-nextclade/"
+    publishDir "${params.outDir}/output-nextclade/", mode: 'copy'
 
     conda params.env_nextclade
 

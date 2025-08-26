@@ -1,6 +1,6 @@
 process pangolin {
 
-    publishDir "${params.outDir}/output-pangolin/"
+    publishDir "${params.outDir}/output-pangolin/", mode: 'copy'
 
     conda params.env_pangolin
 
