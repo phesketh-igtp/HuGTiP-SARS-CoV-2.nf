@@ -19,20 +19,20 @@ process artic {
             path("${sampleID}.primertrimmed.rg.sorted.bam.bai"), 
             path("${sampleID}.primersitereport.txt"),
             path("${sampleID}.amplicon_depths.tsv"),
-            path("${sampleID}.alignreport.csv"), emit: artic_coverage
+            path("${sampleID}.alignreport.tsv"), emit: artic_coverage
 
-        // Main artic outputs to keep for records - fixed multi-line tuple
+        // Main artic outputs to keep for records
         tuple val(sampleID),
-            path("${sampleID}.alignreport.csv"),
+            path("${sampleID}.alignreport.tsv"),
             path("${sampleID}.amplicon_depths.tsv"),
             path("${sampleID}.consensus.fasta"),
             path("${sampleID}.minion.log.txt"),
-            path("${sampleID}.pass.vcf.gz"),
+            path("${sampleID}.pass.vcf"),
             path("${sampleID}.primersitereport.txt"),
             path("${sampleID}.primers.vcf"),
             path("${sampleID}.primertrimmed.rg.sorted.bam"),
             path("${sampleID}.primertrimmed.rg.sorted.bam.bai"), emit: main_out
-        
+
     script:
 
     """
