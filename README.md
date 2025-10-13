@@ -95,7 +95,6 @@ Sample003,barcode03
 Required columns:
 - `sampleID`: Unique sample identifier
 - `barcode`: ONT barcode used for multiplexing
-- Additional columns as needed for your analysis
 
 ## Workflow Steps
 
@@ -112,6 +111,7 @@ The pipeline executes the following main steps:
 ### 3. Quality Correction
 - **ProovFrame**: Corrects frameshift mutations introduced during sequencing
 - Maintains reading frame integrity
+- **Requires the translation of the reference genome**
 
 ### 4. Sequence Analysis
 - **Alignment**: Aligns corrected consensus sequences with reference genome
@@ -247,4 +247,5 @@ This pipeline is released under the [MIT License](LICENSE).
 **Pipeline Version**: 1.0.0  
 **Last Updated**: December 2024  
 **Maintainer**: Can Ruti Hospital Bioinformatics Team
+
 
