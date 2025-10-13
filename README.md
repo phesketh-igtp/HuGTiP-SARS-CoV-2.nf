@@ -86,10 +86,10 @@ nextflow run main.nf \
 Your metadata CSV file should contain the following headers:
 
 ```csv
-sampleID,barcode,collection_date,location
-Sample001,barcode01,2024-01-15,Ward_A
-Sample002,barcode02,2024-01-15,Ward_B
-Sample003,barcode03,2024-01-16,ICU
+sampleID,barcode
+Sample001,barcode01
+Sample002,barcode02
+Sample003,barcode03
 ```
 
 Required columns:
@@ -247,3 +247,4 @@ This pipeline is released under the [MIT License](LICENSE).
 **Pipeline Version**: 1.0.0  
 **Last Updated**: December 2024  
 **Maintainer**: Can Ruti Hospital Bioinformatics Team
+
