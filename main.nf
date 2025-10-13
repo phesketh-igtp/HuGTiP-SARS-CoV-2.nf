@@ -22,7 +22,7 @@ workflow {
 
     log.info """
     ${color_purple}
-    SARS-CoV-2 Surveilance at Can Ruti Hospital [version 1.0.0]${color_reset}
+    SARS-CoV-2 Surveilance [v1.0.1]${color_reset}
     """
 
     // Create channel from sample sheet
