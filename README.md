@@ -1,7 +1,5 @@
 # SARS-CoV-2 Surveillance Pipeline
 
-**Version 1.0.0**
-
 A comprehensive Nextflow DSL2 pipeline for SARS-CoV-2 genomic surveillance using Oxford Nanopore Technologies (ONT) sequencing data. I wrote this when the EPI2ME-lab artic workflow was depreciated.
 
 ## Overview
@@ -247,6 +245,7 @@ This pipeline is released under the [MIT License](LICENSE).
 **Pipeline Version**: 1.0.0  
 **Last Updated**: December 2024  
 **Maintainer**: Can Ruti Hospital Bioinformatics Team
+
 
 
 
