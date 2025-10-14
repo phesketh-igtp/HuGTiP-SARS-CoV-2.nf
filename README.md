@@ -57,21 +57,6 @@ nextflow run HUGTiP-SARS-COV-2.nf/main.nf \​​
    --metadata 'path/sample_sheet.csv' \​​
    -profile conda_on
 ```
-
-### Required Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `--metadata` | File | CSV file containing sample metadata with headers |
-| `--runID` | Integer | Unique numeric identifier for the sequencing run |
-| `--dataDir` | Directory | Full path to directory containing ONT sequencing results |
-
-### Optional Parameters
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `--outDir` | `./results` | Output directory for results |
-
 ### Sample Metadata Format
 
 Your metadata CSV file should contain the following headers:
@@ -231,6 +216,7 @@ If you use this pipeline in your research, please cite:
 3. **ProovFrame**: Hackl, S., et al. ProovFrame: Correcting frameshift errors in viral genome assemblies.
 4. **Nextclade**: Aksamentov, I., et al. (2021). Nextclade: clade assignment, mutation calling and quality control for viral genomes. Journal of Open Source Software, 6(67), 3773.
 5. **Pangolin**: O'Toole, Á., et al. (2021). Assignment of epidemiological lineages in an emerging pandemic using the pangolin tool. Virus Evolution, 7(2), veab064.
+
 
 
 
