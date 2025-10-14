@@ -1,3 +1,7 @@
+
+## Detailed Process Flow Diagram
+
+```mermaid
 graph TB
     %% Define the workflow stages
     subgraph stage1 ["🔄 Stage 1: Data Processing"]
@@ -89,3 +93,23 @@ graph TB
     class metadata,dataDir,runID inputStyle
     class alignment,nextclade,pangolin parallelStyle
     class outputs,consensus_out,analysis_out,qc_out outputStyle
+```
+
+## 📊 Resource Requirements & Runtime Estimates
+
+| Process | CPU | Memory | Typical Runtime | Dependencies |
+|---------|-----|--------|----------------|--------------|
+| GUPPYPLEX | 1 cores | 2 GB | 2-5 min | Oxford Nanopore data |
+| ARTIC | 2 cores | 4 GB | 10-20 min | ARTIC primer schemes |
+| PROOVFRAME | 1 core | 2 GB | 2-5 min | Reference genome |
+| ALIGNMENT | 2 cores | 4 GB | 5-15 min | MAFFT |
+| NEXTCLADE | 2 cores | 4 GB | 3-10 min | Nextclade dataset |
+| PANGOLIN | 2 cores | 4 GB | 5-20 min | Pangolin models |
+| COVERAGE | 1 core | 2 GB | 1-5 min | Samtools |
+
+## 🎯 Pipeline Optimization Points
+
+- **Parallelization**: ALIGNMENT, NEXTCLADE, and PANGOLIN run simultaneously
+- **Early QC**: COVERAGE runs in parallel with downstream analysis
+- **Resource scaling**: CPU/memory requirements scale with data size
+- **Containerization**: All tools available in standardized containers
