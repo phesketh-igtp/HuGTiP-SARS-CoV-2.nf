@@ -44,23 +44,11 @@ This pipeline processes ONT sequencing data to generate high-quality SARS-CoV-2 
 - Minimum 8 GB RAM (16+ GB recommended)
 - 50+ GB free disk space for intermediate files
 
-## Installation
+**Clone the repository**:
 
-1. **Install Nextflow**:
-```bash
-curl -s https://get.nextflow.io | bash
-sudo mv nextflow /usr/local/bin/
-```
-
-2. **Clone the repository**:
 ```bash
 git clone <repository-url>
 cd sars-cov2-surveillance-pipeline
-```
-
-3. **Test installation**:
-```bash
-nextflow run main.nf --help
 ```
 
 ## Usage
