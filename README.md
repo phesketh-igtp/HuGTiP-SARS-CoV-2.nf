@@ -57,6 +57,7 @@ nextflow run HUGTiP-SARS-COV-2.nf/main.nf \​​
    --metadata 'path/sample_sheet.csv' \​​
    -profile conda_on
 ```
+
 ### Sample Metadata Format
 
 Your metadata CSV file should contain the following headers:
@@ -67,10 +68,6 @@ Sample001,barcode01
 Sample002,barcode02
 Sample003,barcode03
 ```
-
-Required columns:
-- `sampleID`: Unique sample identifier
-- `barcode`: ONT barcode used for multiplexing
 
 ## Workflow Steps
 
