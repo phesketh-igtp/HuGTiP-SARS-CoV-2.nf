@@ -26,6 +26,7 @@ process artic {
             path("${sampleID}.alignreport.tsv"),
             path("${sampleID}.amplicon_depths.tsv"),
             path("${sampleID}.consensus.fasta"),
+            path("${sampleID}.primertrimmed.rg.sorted.depth.txt"),
             path("${sampleID}.minion.log.txt"),
             path("${sampleID}.pass.vcf"),
             path("${sampleID}.primersitereport.txt"),
@@ -48,5 +49,8 @@ process artic {
 
     # rename the consensus sequence - fixed sed command
         sed -i 's/^>.*/>'"${sampleID}.consensus"'/' ${sampleID}.consensus.fasta
+
+    # Get the depth profiles
+        samtools depth -a ${sampleID}.primertrimmed.rg.sorted.bam > ${sampleID}.primertrimmed.rg.sorted.depth.txt
     """
 }
