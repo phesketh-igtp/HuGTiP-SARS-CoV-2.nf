@@ -2,12 +2,13 @@
 
 A comprehensive Nextflow DSL2 pipeline for SARS-CoV-2 genomic surveillance using Oxford Nanopore Technologies (ONT) sequencing data.
 
->I wrote this when the EPI2ME-lab artic workflow was depreciated, it functions internally, but I have not writen currently for outside use. This might happen in the future, but currently there are a number of issues potential users should be aware of.
-> **Expected instilation problems:**
-> - Nextflow building of conda enviornments problems
->   - _proovframe_ does not seem to install, and the conda environment created by nextflow needs to be manually activated and proovframe installed.
->   - _artic_ requires models to be downloaded manually, this is easily done with the command `XXXXX`, but again, this must be done manually after ativating the relevant conda environment
-> - Currently there is only a single primer scheme.
+>This workflow was developed when the EPI2ME-lab ARTIC workflow was deprecated. It currently functions for internal use, but it is not yet ready for external release. Several issues should be noted by potential users:
+> **Known Installation Issues**
+> - Nextflow Conda environment build failures
+>   - proovframe may fail to install automatically. The Conda environment created by Nextflow must be manually activated, and proovframe installed manually.
+>   - The ARTIC component requires its models to be downloaded manually. This can be done with the command XXXXX, but only after activating the relevant Conda environment.
+> **Limitations**
+> - Currently, only a single primer scheme is supported.
 
 ## Overview
 
@@ -245,4 +246,5 @@ If you use this pipeline in your research, please cite:
 3. **ProovFrame**: Hackl, S., et al. ProovFrame: Correcting frameshift errors in viral genome assemblies.
 4. **Nextclade**: Aksamentov, I., et al. (2021). Nextclade: clade assignment, mutation calling and quality control for viral genomes. Journal of Open Source Software, 6(67), 3773.
 5. **Pangolin**: O'Toole, Á., et al. (2021). Assignment of epidemiological lineages in an emerging pandemic using the pangolin tool. Virus Evolution, 7(2), veab064.
+
 
