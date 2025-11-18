@@ -19,7 +19,7 @@ process alignment {
                 > all.proovframe.consensus_w_ref.fasta     
 
         #Align sequences
-            mafft --auto --thread 2 \\
+            mafft --auto --thread 1 \\
                 all.proovframe.consensus_w_ref.fasta \\
                 > all.proovframe.consensus_w_ref.aln.fasta     
         """
