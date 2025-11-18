@@ -2,7 +2,7 @@ process guppyplex {
 
     tag "${sampleID}"
 
-    publishDir "${params.outDir}/RELECOV/", mode: 'copy'
+    publishDir "${params.outDir}/guppyplex/", mode: 'copy'
 
     conda params.env_artic
 

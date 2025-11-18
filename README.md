@@ -1,6 +1,16 @@
 # SARS-CoV-2 Surveillance Pipeline
 
-A comprehensive Nextflow DSL2 pipeline for SARS-CoV-2 genomic surveillance using Oxford Nanopore Technologies (ONT) sequencing data. I wrote this when the EPI2ME-lab artic workflow was depreciated.
+A comprehensive Nextflow DSL2 pipeline for SARS-CoV-2 genomic surveillance using Oxford Nanopore Technologies (ONT) sequencing data.
+
+>This workflow was developed when the EPI2ME-lab ARTIC workflow was deprecated. It currently functions for internal use, but it is not yet ready for external release without modification on the users system. Several issues should be noted by potential users:
+>
+> **Known Installation Issues**
+> - Nextflow Conda environment build failures
+>   - proovframe may fail to install automatically. The Conda environment created by Nextflow must be manually activated, and proovframe installed manually.
+>   - The ARTIC component requires its models to be downloaded manually. This can be done with the command XXXXX, but only after activating the relevant Conda environment.
+>
+> **Limitations**
+> - Currently, only a single primer scheme is supported.
 
 ## Overview
 
@@ -20,7 +30,7 @@ This pipeline processes ONT sequencing data to generate high-quality SARS-CoV-2 
 
 ### Software Dependencies
 - Nextflow (≥ 22.04.0)
-- Docker or Singularity/Apptainer
+- Conda
 - Required tools (typically containerized):
   - Guppy/Guppyplex
   - ARTIC workflow tools
@@ -34,50 +44,19 @@ This pipeline processes ONT sequencing data to generate high-quality SARS-CoV-2 
 - Minimum 8 GB RAM (16+ GB recommended)
 - 50+ GB free disk space for intermediate files
 
-## Installation
-
-1. **Install Nextflow**:
-```bash
-curl -s https://get.nextflow.io | bash
-sudo mv nextflow /usr/local/bin/
-```
-
-2. **Clone the repository**:
-```bash
-git clone <repository-url>
-cd sars-cov2-surveillance-pipeline
-```
-
-3. **Test installation**:
-```bash
-nextflow run main.nf --help
-```
-
 ## Usage
 
 ### Quick Start
 
 ```bash
-nextflow run main.nf \
-  --metadata sample_metadata.csv \
-  --runID 12345 \
-  --dataDir /path/to/ont/data \
-  --outDir results/
+nextflow run HUGTiP-SARS-COV-2.nf/main.nf \​​
+   --runID 'run001' \​​
+   --outDir 'path/to/outDir'​ \​
+   --workDir 'path/to/workDir' \ ​
+   --dataDir  'path/dataDir' \​
+   --metadata 'path/sample_sheet.csv' \​​
+   -profile conda_on
 ```
-
-### Required Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `--metadata` | File | CSV file containing sample metadata with headers |
-| `--runID` | Integer | Unique numeric identifier for the sequencing run |
-| `--dataDir` | Directory | Full path to directory containing ONT sequencing results |
-
-### Optional Parameters
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `--outDir` | `./results` | Output directory for results |
 
 ### Sample Metadata Format
 
@@ -89,10 +68,6 @@ Sample001,barcode01
 Sample002,barcode02
 Sample003,barcode03
 ```
-
-Required columns:
-- `sampleID`: Unique sample identifier
-- `barcode`: ONT barcode used for multiplexing
 
 ## Workflow Steps
 
@@ -239,16 +214,8 @@ If you use this pipeline in your research, please cite:
 4. **Nextclade**: Aksamentov, I., et al. (2021). Nextclade: clade assignment, mutation calling and quality control for viral genomes. Journal of Open Source Software, 6(67), 3773.
 5. **Pangolin**: O'Toole, Á., et al. (2021). Assignment of epidemiological lineages in an emerging pandemic using the pangolin tool. Virus Evolution, 7(2), veab064.
 
-## License
-
-This pipeline is released under the [MIT License](LICENSE).
----
-
-**Pipeline Version**: 1.0.0  
-**Last Updated**: December 2024  
-**Maintainer**: Can Ruti Hospital Bioinformatics Team
 
 
-----
+
 
 
