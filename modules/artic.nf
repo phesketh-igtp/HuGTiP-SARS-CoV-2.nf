@@ -44,8 +44,14 @@ process artic {
             --normalise ${params.normalise} \\
             --linearise-fasta \\
             --read-file ${fastq} \\
-            --bed ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/scheme.bed \\
-            --ref ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/reference.fasta
+            --scheme-name artic-sars-cov-2 \\
+            --scheme-version v4.1.0 \\
+            --scheme-length 400 \\
+            --model r1041_e82_400bps_sup_v520 #
+            #--bed ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/scheme.bed \\
+            #--ref ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/reference.fasta \\
+            
+
 
     # rename the consensus sequence - fixed sed command
         sed -i 's/^>.*/>'"${sampleID}.consensus"'/' ${sampleID}.consensus.fasta
@@ -54,3 +60,11 @@ process artic {
         samtools depth -a ${sampleID}.primertrimmed.rg.sorted.bam > ${sampleID}.primertrimmed.rg.sorted.depth.txt
     """
 }
+
+
+/*
+Clair3 models:
+--model {
+        r1041_e82_400bps_sup_v520,
+        }
+*/

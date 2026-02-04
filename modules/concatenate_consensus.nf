@@ -14,7 +14,7 @@ process concatenate_consensus {
 
         """
         # Concat fasta into single file
-        cat ${corr_consensus} > all.proovframe.consensus.1.fasta
+        cat concatenated_consensus.fasta > all.proovframe.consensus.1.fasta
 
         cat ${params.outDir}/output-artic/*/*.proovframe.consensus.fasta \\
             all.proovframe.consensus.1.fasta \\
