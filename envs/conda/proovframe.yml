@@ -24,7 +24,7 @@ dependencies:
   - perl-findbin=1.54=pl5321hdfd78af_0
   - perl-getopt-long=2.58=pl5321hdfd78af_0
   - perl-text-wrap=2021.0814=pl5321hd8ed1ab_0
-  - proovframe=0.9.7=hdfd78af_1
   - seqkit=2.10.1=he881be0_0
   - sysroot_linux-64=2.28=h4ee821c_8
   - tzdata=2025b=h78e105d_0
+  - proovframe=0.9.7=hdfd78af_1

@@ -2,4 +2,4 @@ name: nextclade
 channels:
 - bioconda
 packages:
-- nextclade
+- nextclade=3.21.0

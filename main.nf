@@ -11,7 +11,7 @@ include { proovframe }              from './modules/proovframe.nf'
 include { concatenate_consensus }   from './modules/concatenate_consensus.nf'
 include { alignment }               from './modules/align_corr_consensus_with_ref.nf'
 include { nextclade }               from './modules/nextclade.nf'
-include { pangolin }                from './modules/pangolin.nf'
+//include { pangolin }                from './modules/pangolin.nf'
 
 workflow {
 
@@ -60,7 +60,7 @@ workflow {
     /// Align consensus genomes with reference
         alignment( corr_consensus )
         nextclade( corr_consensus )
-        pangolin( corr_consensus )
+        //pangolin( corr_consensus ) // in hold until figur eout whats happening with version controls
 
     /// Calculate coverage and plot coverage mapping 
         coverage( artic.out.artic_coverage )

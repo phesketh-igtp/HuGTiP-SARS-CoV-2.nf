@@ -5,7 +5,7 @@ channels:
 - defaults
 packages:
 - samtools
-- mafft
+- mafft=7.254
 - seqkit
 - r-plotly
 - r-tidyverse
