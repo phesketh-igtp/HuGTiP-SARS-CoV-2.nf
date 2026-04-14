@@ -3,6 +3,7 @@ process artic {
     tag "${sampleID}"
 
     publishDir "${params.outDir}/output-artic/${sampleID}/", mode: 'copy'
+    publishDir "${params.outDir}/version-control/", mode: 'copy', pattern : '.yaml'
 
     conda params.env_artic
 

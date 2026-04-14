@@ -3,6 +3,7 @@ process coverage {
    tag "${sampleID}"
 
     publishDir "${params.outDir}/output-artic/${sampleID}/", mode: 'copy'
+    publishDir "${params.outDir}/version-control/", mode: 'copy', pattern : '.yaml'
 
     conda params.env_general
 
@@ -16,6 +17,9 @@ process coverage {
     output:
         path("${sampleID}.coverage.csv"), emit: coverage_res
         //path("${sampleID}.coverage.html")
+
+        // Version control
+        file("general.yml")
 
     script:
 
@@ -38,6 +42,9 @@ process coverage {
             
             #rm depths.csv #scheme.bed 
             #mv sequencing_depth_plot.html ${sampleID}.depth.html
+
+        # Export conda environment
+        conda env --format=environment-yaml > general.yml  
         """
 
 }

@@ -3,12 +3,16 @@ process concatenate_consensus {
     conda params.env_pangolin
 
     publishDir "${params.outDir}/consensus_FS_corrected/", mode: 'copy'
+    publishDir "${params.outDir}/version-control/", mode: 'copy', pattern : '.yaml'
 
     input:
         path "concatenated_consensus.fasta"
 
     output:
         path("all.proovframe.consensus.fasta"), emit: consensus_cat
+
+        // Version control
+        file("pangolin.yml")
         
     script:
 
@@ -23,7 +27,10 @@ process concatenate_consensus {
         # remove duplicate sequences (can occur during reruns)
         seqkit rmdup --by-name \\
             all.proovframe.consensus.2.fasta \\
-            > all.proovframe.consensus.fasta     
+            > all.proovframe.consensus.fasta
+
+        # Export conda environment
+        conda env --format=environment-yaml > pangolin.yml
         """
 
 }
