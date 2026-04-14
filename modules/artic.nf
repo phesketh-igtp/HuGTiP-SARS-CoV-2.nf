@@ -47,8 +47,6 @@ process artic {
             --read-file ${fastq} \\
             --bed ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/scheme.bed \\
             --ref ${params.schemeDir}/${params.scheme_name}/${params.scheme_ver}/reference.fasta \\
-            
-
 
     # rename the consensus sequence - fixed sed command
         sed -i 's/^>.*/>'"${sampleID}.consensus"'/' ${sampleID}.consensus.fasta

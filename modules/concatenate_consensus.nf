@@ -1,6 +1,6 @@
 process concatenate_consensus {
 
-    conda params.env_pangolin
+    conda params.env_general
 
     publishDir "${params.outDir}/consensus_FS_corrected/", mode: 'copy'
     publishDir "${params.outDir}/version-control/", mode: 'copy', pattern : '.yaml'
@@ -10,9 +10,6 @@ process concatenate_consensus {
 
     output:
         path("all.proovframe.consensus.fasta"), emit: consensus_cat
-
-        // Version control
-        file("pangolin.yml")
         
     script:
 
@@ -28,9 +25,6 @@ process concatenate_consensus {
         seqkit rmdup --by-name \\
             all.proovframe.consensus.2.fasta \\
             > all.proovframe.consensus.fasta
-
-        # Export conda environment
-        conda env --format=environment-yaml > pangolin.yml
         """
 
 }

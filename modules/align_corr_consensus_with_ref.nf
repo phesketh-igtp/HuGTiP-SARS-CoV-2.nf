@@ -1,5 +1,7 @@
 process alignment {
 
+    conda params.env_general
+
     publishDir "${params.outDir}/consensus_FS_corrected/", mode: 'copy'
     publishDir "${params.outDir}/version-control/", mode: 'copy', pattern : '.yml'
 
@@ -10,9 +12,6 @@ process alignment {
         path("all.proovframe.consensus_w_ref.aln.fasta")
         path("all.proovframe.consensus_w_ref.fasta")
         path("${consensus}")
-
-        // Version control
-        file("proovframe.yml")
     
     script:
 
@@ -26,9 +25,6 @@ process alignment {
             mafft --auto --thread 1 \\
                 all.proovframe.consensus_w_ref.fasta \\
                 > all.proovframe.consensus_w_ref.aln.fasta 
-        
-        # Export conda environment
-        conda env --format=environment-yaml > proovframe.yml
         """
 
 }

@@ -18,9 +18,6 @@ process coverage {
         path("${sampleID}.coverage.csv"), emit: coverage_res
         //path("${sampleID}.coverage.html")
 
-        // Version control
-        file("general.yml")
-
     script:
 
         """
@@ -42,9 +39,6 @@ process coverage {
             
             #rm depths.csv #scheme.bed 
             #mv sequencing_depth_plot.html ${sampleID}.depth.html
-
-        # Export conda environment
-        conda env --format=environment-yaml > general.yml  
         """
 
 }

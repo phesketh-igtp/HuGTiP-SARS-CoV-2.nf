@@ -13,6 +13,12 @@ include { alignment }               from './modules/align_corr_consensus_with_re
 include { nextclade }               from './modules/nextclade.nf'
 //include { pangolin }                from './modules/pangolin.nf'
 
+// version controls
+include { version_control_artic }       from './modules/version-control/artic.nf'
+include { version_control_nextclade }   from './modules/version-control/nextclade.nf'
+include { version_control_pangolin }    from './modules/version-control/pangolin.nf'
+include { version_control_general }    from './modules/version-control/general.nf'
+
 workflow {
 
     def color_purple = '\u001B[35m'
@@ -39,6 +45,12 @@ workflow {
         if (params.dataDir == null) {
             error "Please provide full path to directory containing ONT results using --dataDir"
         }
+
+    // Version controls
+        version_control_artic(params.runID)
+        version_control_nextclade(params.runID)
+        version_control_pangolin(params.runID)
+        version_control_general(params.runID)
 
     // Create the data channel from the metadata
     samples_ch = Channel
@@ -73,8 +85,6 @@ workflow {
                 skip: 1,
                 storeDir: "${params.outDir}"
             )
-
-    /// 
 
 }
 

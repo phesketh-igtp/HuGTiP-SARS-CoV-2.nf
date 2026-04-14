@@ -15,9 +15,6 @@ process guppyplex {
         tuple val(sampleID),
             path("${sampleID}-M${params.runID}-SCoV2.fastq"), emit: guppyplex_out
         
-        // Version control
-        file("artic.yml")
-        
     script:
 
     """
@@ -29,8 +26,5 @@ process guppyplex {
             --directory ${params.dataDir}/${barcode} \\
             --prefix ${sampleID} \\
             --output ${sampleID}-M${params.runID}-SCoV2.fastq
-
-    # Export conda environment
-    conda env --format=environment-yaml > artic.yml  
     """
 }

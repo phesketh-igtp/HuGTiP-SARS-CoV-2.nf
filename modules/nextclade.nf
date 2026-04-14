@@ -10,9 +10,6 @@ process nextclade {
 
     output:
         file("output_nextclade/*")
-
-        // Version control
-        file("nextclade.yml")
         
     script:
 
@@ -24,9 +21,6 @@ process nextclade {
         nextclade run all.proovframe.consensus.fasta \\
             -D latest-db/nextclade \\
             --output-all output_nextclade/
-
-        # Export conda environment
-        conda env --format=environment-yaml > nextclade.yml
         """
 
 }
